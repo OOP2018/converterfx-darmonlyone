@@ -2,6 +2,7 @@ package converter;
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
@@ -62,6 +63,8 @@ public class ConverterController {
         String textInput = (!leftText.getText().equals("")) ? leftText.getText().trim() : rightText.getText().trim();
         double inputDouble = parseDouble(textInput);
         if (inputDouble == 0){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Please in put value");
+            alert.show();
             rightText.setText("");
             leftText.setText("");
             return;
@@ -72,10 +75,8 @@ public class ConverterController {
         Length toChange = (!leftText.getText().equals(""))? choiceChoose.getValue() : choiceConvert.getValue();
         Length changed = (!leftText.getText().equals("")) ? choiceConvert.getValue(): choiceChoose.getValue();
 
-        if (toChange.getValue() != changed.getValue()) {
             outputDouble *= toChange.getValue();
             outputDouble /= changed.getValue();
-        }
 
         if (!leftText.getText().isEmpty()) {
             rightText.setText(String.format("%.4g", outputDouble));
