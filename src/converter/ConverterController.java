@@ -61,7 +61,11 @@ public class ConverterController {
         else leftText.setText("");
         String textInput = (!leftText.getText().equals("")) ? leftText.getText().trim() : rightText.getText().trim();
         double inputDouble = parseDouble(textInput);
-        if (inputDouble == 0)return;
+        if (inputDouble == 0){
+            rightText.setText("");
+            leftText.setText("");
+            return;
+        }
 
         double outputDouble = inputDouble;
 
