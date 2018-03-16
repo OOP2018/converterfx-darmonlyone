@@ -1,29 +1,30 @@
 package converter;
 
 /**
- * Length unit for converting
+ * Speed unit for converting
  * @author Manusporn Fukkham
  */
-public enum Length implements Unit {
-    Meter(1.0),
-    Centimeter(0.01),
-    Kilometer(1000.0),
-    Mile(1609.344),
-    Foot(0.0480),
-    Wa(2.0),
-    Au(149597870700.0);
+public enum Speed implements Unit {
+    KilometerPerSecond(1),
+    MeterPerSecond(0.001),
+    KilometerPerMinute(0.01667),
+    MeterPerMinute(0.00001667),
+    KilometerPerHour(0.0002778),
+    MeterPerHour(0.0000002778),
+    KilometerPerYears(0.00000003169),
+    MeterPerYear(0.00000000003169);
 
     /**value of the unit*/
     private final double value;
 
-    /**Constructor of Length to set value of unit*/
-    Length(double v) {
+    /**Constructor of Speed to set value of unit*/
+    Speed(double v) {
         this.value = v;
     }
 
     /**
      * get the value of unit
-     * @return the value of Length
+     * @return the value of Speed
      */
     @Override
     public double getValue() {

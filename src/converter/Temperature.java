@@ -1,29 +1,27 @@
 package converter;
 
 /**
- * Length unit for converting
+ * Temperature unit for converting
  * @author Manusporn Fukkham
  */
-public enum Length implements Unit {
-    Meter(1.0),
-    Centimeter(0.01),
-    Kilometer(1000.0),
-    Mile(1609.344),
-    Foot(0.0480),
-    Wa(2.0),
-    Au(149597870700.0);
+public enum  Temperature implements Unit {
+    Celcius(1.0),
+    Fahrenhi(-17.22),
+    Kelvin(-272.15),
+    Rankine(-272.594);
+
 
     /**value of the unit*/
     private final double value;
 
-    /**Constructor of Length to set value of unit*/
-    Length(double v) {
+    /**Constructor of Temperature to set value of unit*/
+    Temperature(double v) {
         this.value = v;
     }
 
     /**
      * get the value of unit
-     * @return the value of Length
+     * @return the value of Temperature
      */
     @Override
     public double getValue() {
@@ -37,6 +35,6 @@ public enum Length implements Unit {
      */
     @Override
     public double convert(Unit unit){
-        return this.getValue()/unit.getValue();
+        return this.getValue() - unit.getValue();
     }
 }

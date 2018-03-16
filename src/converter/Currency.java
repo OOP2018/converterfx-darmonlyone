@@ -1,29 +1,31 @@
 package converter;
 
 /**
- * Length unit for converting
+ * Temperature unit for converting
  * @author Manusporn Fukkham
  */
-public enum Length implements Unit {
-    Meter(1.0),
-    Centimeter(0.01),
-    Kilometer(1000.0),
-    Mile(1609.344),
-    Foot(0.0480),
-    Wa(2.0),
-    Au(149597870700.0);
+public enum  Currency implements Unit {
+    Baht(1.0),
+    USDollar(31.21),
+    Pound(43.48),
+    BitCoin(250878.86),
+    Yuan(4.93),
+    Yen(0.29),
+    Rupee(0.48),
+    Won(0.029);
+
 
     /**value of the unit*/
     private final double value;
 
-    /**Constructor of Length to set value of unit*/
-    Length(double v) {
+    /**Constructor of Currency to set value of unit*/
+    Currency(double v) {
         this.value = v;
     }
 
     /**
      * get the value of unit
-     * @return the value of Length
+     * @return the value of Currency
      */
     @Override
     public double getValue() {

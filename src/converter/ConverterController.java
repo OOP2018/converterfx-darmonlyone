@@ -2,10 +2,7 @@ package converter;
 
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 /**
  * Controller of Converter application
@@ -26,15 +23,33 @@ public class ConverterController {
     Button clearButton;
 
     @FXML
-    ComboBox<Length> choiceChoose;
+    ComboBox<Unit> choiceChoose;
 
     @FXML
-    ComboBox<Length> choiceConvert;
+    ComboBox<Unit> choiceConvert;
+
+    @FXML
+    MenuBar unitType;
+    @FXML
+    MenuItem length;
+
+    @FXML
+    MenuItem temperature;
+
+    @FXML
+    MenuItem volume;
+
+    @FXML
+    MenuItem weight;
+
+    @FXML
+    MenuItem currency;
+
+    @FXML
+    MenuItem speed;
 
     /** left textfield check to convert*/
     private boolean leftCheck = true;
-    /** right textfield check to convert*/
-    private boolean rightCheck = false;
 
     /**
      * Initialize the FXML
@@ -42,6 +57,8 @@ public class ConverterController {
      */
     @FXML
     public void initialize(){
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
         if (choiceChoose != null){
             choiceChoose.getItems().addAll(Length.values());
             choiceChoose.getSelectionModel().select(0);
@@ -50,19 +67,109 @@ public class ConverterController {
             choiceConvert.getItems().addAll(Length.values());
             choiceConvert.getSelectionModel().select(1);
         }
-
     }
+
+    @FXML
+    public void exit(ActionEvent actionEvent){
+        System.exit(0);
+    }
+    @FXML
+    public void setLength(ActionEvent actionEvent){
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Length.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Length.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
+    @FXML
+    public void setVolume(ActionEvent actionEvent) {
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Volume.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Volume.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
+    @FXML
+    public void setWeight(ActionEvent actionEvent) {
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Weight.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Weight.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
+    @FXML
+    public void setTemperature(ActionEvent actionEvent) {
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Temperature.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Temperature.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
+    @FXML
+    public void setCurrency(ActionEvent actionEvent) {
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Currency.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Currency.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
+    @FXML
+    public void setSpeed(ActionEvent actionEvent){
+        choiceChoose.getItems().clear();
+        choiceConvert.getItems().clear();
+        if (choiceChoose != null){
+            choiceChoose.getItems().addAll(Speed.values());
+            choiceChoose.getSelectionModel().select(0);
+        }
+        if (choiceConvert != null){
+            choiceConvert.getItems().addAll(Speed.values());
+            choiceConvert.getSelectionModel().select(1);
+        }
+    }
+
     /**
      * Convert a distance form one unit to another
      */
     @FXML
     public void handleCovert(ActionEvent activeEvent){
-        if (leftCheck && !rightCheck)
+        if (leftCheck)
             rightText.setText("");
         else leftText.setText("");
         String textInput = (!leftText.getText().equals("")) ? leftText.getText().trim() : rightText.getText().trim();
-        double inputDouble = parseDouble(textInput);
-        if (inputDouble == 0){
+        double inputDouble;
+        try {
+            inputDouble = parseDouble(textInput);
+        }catch (IllegalArgumentException e){
             Alert alert = new Alert(Alert.AlertType.ERROR,"Please in put value");
             alert.show();
             rightText.setText("");
@@ -72,16 +179,17 @@ public class ConverterController {
 
         double outputDouble = inputDouble;
 
-        Length toChange = (!leftText.getText().equals(""))? choiceChoose.getValue() : choiceConvert.getValue();
-        Length changed = (!leftText.getText().equals("")) ? choiceConvert.getValue(): choiceChoose.getValue();
+        Unit toChange = (!leftText.getText().equals(""))? choiceChoose.getValue() : choiceConvert.getValue();
+        Unit changed = (!leftText.getText().equals("")) ? choiceConvert.getValue(): choiceChoose.getValue();
 
-            outputDouble *= toChange.getValue();
-            outputDouble /= changed.getValue();
+        outputDouble *= toChange.convert(changed);
+//            outputDouble *= toChange.getValue();
+//            outputDouble /= changed.getValue();
 
         if (!leftText.getText().isEmpty()) {
-            rightText.setText(String.format("%.4g", outputDouble));
+            rightText.setText(String.format("%.6g", outputDouble));
         }else {
-            leftText.setText(String.format("%.4g", outputDouble));
+            leftText.setText(String.format("%.6g", outputDouble));
         }
     }
 
@@ -91,7 +199,6 @@ public class ConverterController {
     @FXML
     public void handleClear(ActionEvent actionEvent){
         leftCheck = true;
-        rightCheck = false;
         leftText.setText("");
         rightText.setText("");
     }
@@ -102,7 +209,6 @@ public class ConverterController {
     @FXML
     public void onEnterRight(ActionEvent actionEvent){
         leftCheck = false;
-        rightCheck = true;
         leftText.setText("");
         handleCovert(actionEvent);
     }
@@ -113,7 +219,6 @@ public class ConverterController {
     @FXML
     public void onEnterLeft(ActionEvent actionEvent){
         leftCheck = true;
-        rightCheck = false;
         rightText.setText("");
         handleCovert(actionEvent);
     }
@@ -128,7 +233,7 @@ public class ConverterController {
             return Double.parseDouble(covert);
         }catch (Exception e){
             System.err.println("This value is not Double");
-            return 0;
+            throw new IllegalArgumentException();
         }
     }
 }

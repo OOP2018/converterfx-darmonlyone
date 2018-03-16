@@ -1,29 +1,33 @@
 package converter;
 
 /**
- * Length unit for converting
+ * Volume unit for converting
  * @author Manusporn Fukkham
  */
-public enum Length implements Unit {
-    Meter(1.0),
-    Centimeter(0.01),
-    Kilometer(1000.0),
-    Mile(1609.344),
-    Foot(0.0480),
-    Wa(2.0),
-    Au(149597870700.0);
+public enum Volume implements Unit {
+    Litre(1.0),
+    Millilitre(0.001),
+    USgallon(3.785),
+    UKgallon(4.546),
+    Barrel(159.0),
+    CubicFeet(28.3),
+    CubicMetre(1000.0),
+    Sat(25),
+    Kwian(2000),
+    YipMue(0.0078125),
+    KamMue(0.03125);
 
     /**value of the unit*/
     private final double value;
 
-    /**Constructor of Length to set value of unit*/
-    Length(double v) {
+    /**Constructor of Volume to set value of unit*/
+    Volume(double v) {
         this.value = v;
     }
 
     /**
      * get the value of unit
-     * @return the value of Length
+     * @return the value of Volume
      */
     @Override
     public double getValue() {

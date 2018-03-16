@@ -1,29 +1,34 @@
 package converter;
 
 /**
- * Length unit for converting
+ * Weight unit for converting
  * @author Manusporn Fukkham
  */
-public enum Length implements Unit {
-    Meter(1.0),
-    Centimeter(0.01),
-    Kilometer(1000.0),
-    Mile(1609.344),
-    Foot(0.0480),
-    Wa(2.0),
-    Au(149597870700.0);
+public enum  Weight implements Unit {
+    Kilogram(1.0),
+    Gram(0.001),
+    Milligram(0.000001),
+    Pound(0.454),
+    Tonne(1000),
+    LongTon(1016),
+    ShortTon(907.2),
+    Baht(0.015),
+    Chang(1.2),
+    Hap(60);
+
+
 
     /**value of the unit*/
     private final double value;
 
-    /**Constructor of Length to set value of unit*/
-    Length(double v) {
+    /**Constructor of Weight to set value of unit*/
+    Weight(double v) {
         this.value = v;
     }
 
     /**
      * get the value of unit
-     * @return the value of Length
+     * @return the value of Weight
      */
     @Override
     public double getValue() {
@@ -39,4 +44,5 @@ public enum Length implements Unit {
     public double convert(Unit unit){
         return this.getValue()/unit.getValue();
     }
+
 }
