@@ -40,7 +40,7 @@ public enum Volume implements Unit {
      * @return the amount of unit change from convert
      */
     @Override
-    public double convert(Unit unit){
-        return this.getValue()/unit.getValue();
+    public double convert(Unit unit , double value){
+        return value * (this.getValue()/unit.getValue());
     }
 }

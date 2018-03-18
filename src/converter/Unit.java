@@ -9,6 +9,6 @@ public interface Unit {
     double getValue();
     /** set a String*/
     String toString();
-    /** convert a unit*/
-    double convert(Unit unit);
+    /** convert a unit as value*/
+    double convert(Unit unit, double value);
 }

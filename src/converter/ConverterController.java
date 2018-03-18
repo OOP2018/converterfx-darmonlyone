@@ -28,26 +28,6 @@ public class ConverterController {
     @FXML
     ComboBox<Unit> choiceConvert;
 
-    @FXML
-    MenuBar unitType;
-    @FXML
-    MenuItem length;
-
-    @FXML
-    MenuItem temperature;
-
-    @FXML
-    MenuItem volume;
-
-    @FXML
-    MenuItem weight;
-
-    @FXML
-    MenuItem currency;
-
-    @FXML
-    MenuItem speed;
-
     /** left textfield check to convert*/
     private boolean leftCheck = true;
 
@@ -57,22 +37,15 @@ public class ConverterController {
      */
     @FXML
     public void initialize(){
-        choiceChoose.getItems().clear();
-        choiceConvert.getItems().clear();
-        if (choiceChoose != null){
-            choiceChoose.getItems().addAll(Length.values());
-            choiceChoose.getSelectionModel().select(0);
-        }
-        if (choiceConvert != null){
-            choiceConvert.getItems().addAll(Length.values());
-            choiceConvert.getSelectionModel().select(1);
-        }
+       setLength(new ActionEvent());
     }
-
+    /**Exit the program*/
     @FXML
     public void exit(ActionEvent actionEvent){
         System.exit(0);
     }
+
+    /**set comboBox as Length convert*/
     @FXML
     public void setLength(ActionEvent actionEvent){
         choiceChoose.getItems().clear();
@@ -87,6 +60,7 @@ public class ConverterController {
         }
     }
 
+    /**set comboBox as Volume convert unit*/
     @FXML
     public void setVolume(ActionEvent actionEvent) {
         choiceChoose.getItems().clear();
@@ -101,6 +75,7 @@ public class ConverterController {
         }
     }
 
+    /**set comboBox as Weight convert unit*/
     @FXML
     public void setWeight(ActionEvent actionEvent) {
         choiceChoose.getItems().clear();
@@ -115,6 +90,7 @@ public class ConverterController {
         }
     }
 
+    /**set comboBox as Temperature convert unit*/
     @FXML
     public void setTemperature(ActionEvent actionEvent) {
         choiceChoose.getItems().clear();
@@ -129,6 +105,7 @@ public class ConverterController {
         }
     }
 
+    /**set comboBox as Currency convert unit */
     @FXML
     public void setCurrency(ActionEvent actionEvent) {
         choiceChoose.getItems().clear();
@@ -143,6 +120,7 @@ public class ConverterController {
         }
     }
 
+    /**set comboBox as Speed convert unit*/
     @FXML
     public void setSpeed(ActionEvent actionEvent){
         choiceChoose.getItems().clear();
@@ -158,13 +136,10 @@ public class ConverterController {
     }
 
     /**
-     * Convert a distance form one unit to another
+     * Convert a value form one unit to another
      */
     @FXML
     public void handleCovert(ActionEvent activeEvent){
-        if (leftCheck)
-            rightText.setText("");
-        else leftText.setText("");
         String textInput = (!leftText.getText().equals("")) ? leftText.getText().trim() : rightText.getText().trim();
         double inputDouble;
         try {
@@ -182,11 +157,9 @@ public class ConverterController {
         Unit toChange = (!leftText.getText().equals(""))? choiceChoose.getValue() : choiceConvert.getValue();
         Unit changed = (!leftText.getText().equals("")) ? choiceConvert.getValue(): choiceChoose.getValue();
 
-        outputDouble *= toChange.convert(changed);
-//            outputDouble *= toChange.getValue();
-//            outputDouble /= changed.getValue();
+        outputDouble = toChange.convert(changed,outputDouble);
 
-        if (!leftText.getText().isEmpty()) {
+        if (leftCheck) {
             rightText.setText(String.format("%.6g", outputDouble));
         }else {
             leftText.setText(String.format("%.6g", outputDouble));
